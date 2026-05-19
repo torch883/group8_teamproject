@@ -53,3 +53,8 @@ def get_daily_best(sessions):
                 daily[date] = {"player": name, "score": score}
 
     return daily
+
+
+def filter_by_player(sessions, player_name):
+    result = list(filter(lambda x: x["player"] == player_name, sessions))
+    return result
