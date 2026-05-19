@@ -3,7 +3,7 @@ import json
 def load_data(filename):
     try:
         file=open(filename, "r")
-        content=json.load(file)
+        content=file.read()
         file.close()
     
         if content.strip() == "":
