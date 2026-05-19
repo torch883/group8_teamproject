@@ -25,3 +25,31 @@ def get_average_scores(sessions):
         averages[name] = sum(players[name]) / len(players[name])
 
     return averages
+
+
+def get_best_performance(sessions):
+    if len(sessions) == 0:
+        return None
+
+    best = sessions[0]
+    for session in sessions:
+        if session["score"] > best["score"]:
+            best = session
+
+    return best
+
+
+def get_daily_best(sessions):
+    daily = {}
+    for session in sessions:
+        date = session["date"]
+        score = session["score"]
+        name = session["player"]
+
+        if date not in daily:
+            daily[date] = {"player": name, "score": score}
+        else:
+            if score > daily[date]["score"]:
+                daily[date] = {"player": name, "score": score}
+
+    return daily
