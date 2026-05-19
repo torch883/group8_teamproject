@@ -3,8 +3,14 @@ import json
 def load_data(filename):
     try:
         file=open(filename, "r")
-        data=json.load(file)
+        content=json.load(file)
         file.close()
+    
+        if content.strip() == "":
+            print("File is empty")
+            return []
+    
+        data=json.loads(content)   
         return data
     except FileNotFoundError:
         print("File not found")
@@ -18,5 +24,6 @@ def save_data(filename, data):
         file=open(filename, "w")
         json.dump(data, file, indent=4)
         file.close()
+        print("Data saved successfully")
     except Exception as e:
         print("Error saving data:", e)
