@@ -18,3 +18,22 @@ def get_leaderboard(sessions):
                 leaderboard[i], leaderboard[j] = leaderboard[j], leaderboard[i]
 
     return leaderboard
+
+
+def get_average_scores(sessions):
+    totals = {}
+    counts = {}
+    for session in sessions:
+        name = session["player"]
+        score = session["score"]
+        if name not in totals:
+            totals[name] = 0
+            counts[name] = 0
+        totals[name] = totals[name] + score
+        counts[name] = counts[name] + 1
+
+    averages = {}
+    for name in totals:
+        averages[name] = totals[name] / counts[name]
+
+    return averages
