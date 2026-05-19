@@ -8,32 +8,20 @@ def get_leaderboard(sessions):
         else:
             totals[name] = score
 
-    leaderboard = []
-    for name in totals:
-        leaderboard.append((name, totals[name]))
-
-    for i in range(len(leaderboard)):
-        for j in range(i + 1, len(leaderboard)):
-            if leaderboard[i][1] < leaderboard[j][1]:
-                leaderboard[i], leaderboard[j] = leaderboard[j], leaderboard[i]
-
+    leaderboard = sorted(totals.items(), key=lambda x: x[1], reverse=True)
     return leaderboard
 
 
 def get_average_scores(sessions):
-    totals = {}
-    counts = {}
+    players = {}
     for session in sessions:
         name = session["player"]
-        score = session["score"]
-        if name not in totals:
-            totals[name] = 0
-            counts[name] = 0
-        totals[name] = totals[name] + score
-        counts[name] = counts[name] + 1
+        if name not in players:
+            players[name] = []
+        players[name].append(session["score"])
 
     averages = {}
-    for name in totals:
-        averages[name] = totals[name] / counts[name]
+    for name in players:
+        averages[name] = sum(players[name]) / len(players[name])
 
     return averages
